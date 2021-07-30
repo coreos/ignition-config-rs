@@ -1,7 +1,7 @@
 # Ignition config data structures for Rust
 
 [![crates.io](https://img.shields.io/crates/v/ignition-config.svg)](https://crates.io/crates/ignition-config)
-[![docs](https://docs.rs/ignition-config/badge.svg)](https://docs.rs/crate/ignition-config)
+[![docs](https://docs.rs/ignition-config/badge.svg)](https://docs.rs/ignition-config/latest/ignition_config/)
 
 ignition-config is a library providing data structures for creating [Ignition](https://coreos.github.io/ignition/) configs and serializing them to JSON.
 
