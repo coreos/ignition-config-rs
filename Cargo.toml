@@ -6,10 +6,11 @@ edition = "2018"
 exclude = ["/.github", "/.gitignore"]
 authors = [ "Benjamin Gilbert <bgilbert@redhat.com>" ]
 description = "Data structures for reading/writing Ignition configs"
-version = "0.1.0-alpha.0"
+version = "0.0.2-alpha.0"
 
 [package.metadata.release]
 sign-commit = true
+sign-tag = true
 disable-push = true
 disable-publish = true
 pre-release-commit-message = "cargo: ignition-config release {{version}}"
