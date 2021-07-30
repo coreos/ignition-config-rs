@@ -1,3 +1,5 @@
+// Generated code; do not modify
+
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 pub struct HttpHeadersItem {
     pub name: String,
@@ -272,7 +274,7 @@ pub struct LuksClevis {
     pub threshold: Option<i64>,
     #[serde(default)]
     #[serde(rename = "tpm2")]
-    pub tpm_2: Option<bool>,
+    pub tpm2: Option<bool>,
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "luks")]
@@ -336,10 +338,10 @@ pub struct Partition {
     pub should_exist: Option<bool>,
     #[serde(default)]
     #[serde(rename = "sizeMiB")]
-    pub size_mi_b: Option<i64>,
+    pub size_mib: Option<i64>,
     #[serde(default)]
     #[serde(rename = "startMiB")]
-    pub start_mi_b: Option<i64>,
+    pub start_mib: Option<i64>,
     #[serde(default)]
     #[serde(rename = "typeGuid")]
     pub type_guid: Option<String>,

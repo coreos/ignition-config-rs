@@ -15,10 +15,15 @@
 #[cfg(feature = "regenerate")]
 mod regenerate {
     use std::fs::read_dir;
+    use std::io::{Read, Write};
     use std::path::Path;
+    use std::process::{Command, Stdio};
 
-    use anyhow::{anyhow, Result};
+    use anyhow::{anyhow, bail, Context, Result};
+    use proc_macro2::{Ident, Span};
+    use quote::quote;
     use schemafy_lib::Generator;
+    use syn::visit_mut::{self, VisitMut};
     use tempfile::NamedTempFile;
 
     pub fn regenerate() -> Result<()> {
@@ -35,19 +40,71 @@ mod regenerate {
     }
 
     fn regenerate_one(schema_path: &Path, rust_path: &Path) -> Result<()> {
-        let output_file = NamedTempFile::new_in(rust_path.parent().unwrap())?;
+        // generate the Rust code
+        let mut generated_file = NamedTempFile::new()?;
         Generator::builder()
             .with_root_name_str("Config")
             .with_input_file(&schema_path)
             .build()
             .generate_to_file(
-                &output_file
+                &generated_file
                     .path()
                     .to_str()
                     .ok_or_else(|| anyhow!("couldn't convert output path"))?,
             )?;
-        output_file.persist(rust_path)?;
+
+        // parse it back
+        let mut buf = String::new();
+        generated_file.read_to_string(&mut buf)?;
+        let mut tree = syn::parse_file(&buf)?;
+
+        // modify it
+        Rewriter.visit_file_mut(&mut tree);
+
+        // run it through rustfmt and write it out
+        let output = format!("// Generated code; do not modify\n\n{}", quote!(#tree));
+        let (output_file, output_path) =
+            NamedTempFile::new_in(rust_path.parent().unwrap())?.into_parts();
+        let mut formatter = Command::new("rustfmt")
+            .args(&["--edition", "2018"])
+            .stdin(Stdio::piped())
+            .stdout(output_file)
+            .spawn()
+            .context("couldn't run rustfmt")?;
+        formatter
+            .stdin
+            .as_mut()
+            .expect("stdin")
+            .write_all(output.as_bytes())?;
+        let result = formatter.wait()?;
+        if !result.success() {
+            bail!("rustfmt failed");
+        }
+        output_path.persist(rust_path)?;
+
         Ok(())
+    }
+
+    struct Rewriter;
+
+    impl VisitMut for Rewriter {
+        fn visit_field_mut(&mut self, node: &mut syn::Field) {
+            if let Some(ident) = node.ident.clone() {
+                // mangle field identifier
+                let name = ident.to_string();
+                node.ident = Some(match name.as_str() {
+                    // Inflector converts tpm2 to tpm_2
+                    "tpm_2" => Ident::new("tpm2", Span::call_site()),
+                    // Inflector converts MiB to mi_b
+                    s if s.ends_with("_mi_b") => {
+                        let new_name = name.replace("_mi_b", "_mib");
+                        Ident::new(&new_name, Span::call_site())
+                    }
+                    _ => ident,
+                })
+            }
+            visit_mut::visit_field_mut(self, node);
+        }
     }
 }
 

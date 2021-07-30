@@ -1,3 +1,5 @@
+// Generated code; do not modify
+
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "ca-reference")]
 pub struct CaReference {
@@ -274,10 +276,10 @@ pub struct Partition {
     pub should_exist: Option<bool>,
     #[serde(default)]
     #[serde(rename = "sizeMiB")]
-    pub size_mi_b: Option<i64>,
+    pub size_mib: Option<i64>,
     #[serde(default)]
     #[serde(rename = "startMiB")]
-    pub start_mi_b: Option<i64>,
+    pub start_mib: Option<i64>,
     #[serde(default)]
     #[serde(rename = "typeGuid")]
     pub type_guid: Option<String>,
