@@ -1,0 +1,4 @@
+/target
+
+# This is a library; ignore Cargo.lock
+/Cargo.lock
