@@ -18,5 +18,12 @@ post-release-commit-message = "cargo: development version bump"
 tag-message = "ignition-config v{{version}}"
 
 [dependencies]
-schemafy = "0.5.2"
-serde = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+
+[build-dependencies]
+anyhow = "1.0"
+schemafy_lib = { git = "https://github.com/Marwes/schemafy", optional = true }
+tempfile = { version = "3.2.0", optional = true }
+
+[features]
+regenerate = ["schemafy_lib", "tempfile"]

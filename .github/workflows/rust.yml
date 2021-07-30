@@ -29,10 +29,15 @@ jobs:
         with:
           toolchain: stable
           default: true
+          components: rustfmt
       - name: cargo build
         run: cargo build
       - name: cargo test
         run: cargo test
+      - name: cargo build (regenerate)
+        run: cargo build --features regenerate
+      - name: cargo test (regenerate)
+        run: cargo test --features regenerate
   tests-msrv:
     name: "Tests, minimum supported toolchain"
     runs-on: ubuntu-latest
@@ -44,10 +49,15 @@ jobs:
         with:
           toolchain: ${{ env['ACTIONS_MSRV_TOOLCHAIN']  }}
           default: true
+          components: rustfmt
       - name: cargo build
         run: cargo build
       - name: cargo test
         run: cargo test
+      - name: cargo build (regenerate)
+        run: cargo build --features regenerate
+      - name: cargo test (regenerate)
+        run: cargo test --features regenerate
   lints:
     name: "Lints, pinned toolchain"
     runs-on: ubuntu-latest
@@ -64,8 +74,12 @@ jobs:
         run: cargo fmt -- --check -l
       - name: cargo clippy (warnings)
         run: cargo clippy -- -D warnings
+      - name: cargo clippy (warnings, regenerate)
+        run: cargo clippy --features regenerate -- -D warnings
       - name: cargo build
         run: cargo build
+      - name: cargo build (regenerate)
+        run: cargo build --features regenerate
   tests-other-channels:
     name: "Tests, unstable toolchain"
     runs-on: ubuntu-latest
@@ -83,7 +97,12 @@ jobs:
         with:
           toolchain: ${{ matrix.channel }}
           default: true
+          components: rustfmt
       - name: cargo build
         run: cargo build
       - name: cargo test
         run: cargo test
+      - name: cargo build (regenerate)
+        run: cargo build --features regenerate
+      - name: cargo test (regenerate)
+        run: cargo test --features regenerate
