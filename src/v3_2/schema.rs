@@ -157,14 +157,14 @@ pub struct DirectoryUser {
 #[serde(rename = "directory")]
 pub struct Directory {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<DirectoryGroup>,
+    pub group: Option<NodeGroup>,
     #[serde(default)]
     pub mode: Option<i64>,
     #[serde(default)]
     pub overwrite: Option<bool>,
     pub path: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<DirectoryUser>,
+    pub user: Option<NodeUser>,
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "disk")]
@@ -198,14 +198,14 @@ pub struct File {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub contents: Option<Resource>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<FileGroup>,
+    pub group: Option<NodeGroup>,
     #[serde(default)]
     pub mode: Option<i64>,
     #[serde(default)]
     pub overwrite: Option<bool>,
     pub path: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<FileUser>,
+    pub user: Option<NodeUser>,
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "filesystem")]
@@ -246,7 +246,7 @@ pub struct LinkUser {
 #[serde(rename = "link")]
 pub struct Link {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<LinkGroup>,
+    pub group: Option<NodeGroup>,
     #[serde(default)]
     pub hard: Option<bool>,
     #[serde(default)]
@@ -254,7 +254,7 @@ pub struct Link {
     pub path: String,
     pub target: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<LinkUser>,
+    pub user: Option<NodeUser>,
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 pub struct LuksClevisCustom {

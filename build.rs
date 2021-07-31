@@ -121,11 +121,26 @@ mod regenerate {
 
         fn visit_path_segment_mut(&mut self, node: &mut syn::PathSegment) {
             // mangle struct identifier in field type
+
             // https://github.com/Marwes/schemafy/pull/49
             let name = node.ident.to_string();
-            let new_name = name
+            let mut new_name = name
                 .replace("ItemGroup", "Group")
                 .replace("GroupUser", "User");
+
+            // coalesce node user/group structs
+            // https://github.com/Marwes/schemafy/issues/50
+            new_name = match new_name.as_str() {
+                "DirectoryGroup" => "NodeGroup",
+                "DirectoryUser" => "NodeUser",
+                "FileGroup" => "NodeGroup",
+                "FileUser" => "NodeUser",
+                "LinkGroup" => "NodeGroup",
+                "LinkUser" => "NodeUser",
+                _ => &new_name,
+            }
+            .to_string();
+
             if new_name != name {
                 node.ident = Ident::new(&new_name, Span::call_site())
             }
