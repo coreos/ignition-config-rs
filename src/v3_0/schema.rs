@@ -121,7 +121,7 @@ pub struct DirectoryGroup {
     pub name: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct DirectoryGroupUser {
+pub struct DirectoryUser {
     #[serde(default)]
     pub id: Option<i64>,
     #[serde(default)]
@@ -138,7 +138,7 @@ pub struct Directory {
     pub overwrite: Option<bool>,
     pub path: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<DirectoryGroupUser>,
+    pub user: Option<DirectoryUser>,
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "disk")]
@@ -151,14 +151,14 @@ pub struct Disk {
     pub wipe_table: Option<bool>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct FileItemGroup {
+pub struct FileGroup {
     #[serde(default)]
     pub id: Option<i64>,
     #[serde(default)]
     pub name: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct FileItemGroupUser {
+pub struct FileUser {
     #[serde(default)]
     pub id: Option<i64>,
     #[serde(default)]
@@ -172,14 +172,14 @@ pub struct File {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub contents: Option<FileContents>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<FileItemGroup>,
+    pub group: Option<FileGroup>,
     #[serde(default)]
     pub mode: Option<i64>,
     #[serde(default)]
     pub overwrite: Option<bool>,
     pub path: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<FileItemGroupUser>,
+    pub user: Option<FileUser>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "file-contents")]
@@ -217,7 +217,7 @@ pub struct LinkGroup {
     pub name: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct LinkGroupUser {
+pub struct LinkUser {
     #[serde(default)]
     pub id: Option<i64>,
     #[serde(default)]
@@ -235,7 +235,7 @@ pub struct Link {
     pub path: String,
     pub target: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<LinkGroupUser>,
+    pub user: Option<LinkUser>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 pub struct NodeGroup {
@@ -245,7 +245,7 @@ pub struct NodeGroup {
     pub name: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct NodeGroupUser {
+pub struct NodeUser {
     #[serde(default)]
     pub id: Option<i64>,
     #[serde(default)]
@@ -260,7 +260,7 @@ pub struct Node {
     pub overwrite: Option<bool>,
     pub path: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<NodeGroupUser>,
+    pub user: Option<NodeUser>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "partition")]
