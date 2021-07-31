@@ -139,20 +139,6 @@ pub struct Resource {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub verification: Option<Verification>,
 }
-#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct DirectoryGroup {
-    #[serde(default)]
-    pub id: Option<i64>,
-    #[serde(default)]
-    pub name: Option<String>,
-}
-#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct DirectoryUser {
-    #[serde(default)]
-    pub id: Option<i64>,
-    #[serde(default)]
-    pub name: Option<String>,
-}
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "directory")]
 pub struct Directory {
@@ -175,20 +161,6 @@ pub struct Disk {
     #[serde(default)]
     #[serde(rename = "wipeTable")]
     pub wipe_table: Option<bool>,
-}
-#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct FileGroup {
-    #[serde(default)]
-    pub id: Option<i64>,
-    #[serde(default)]
-    pub name: Option<String>,
-}
-#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct FileUser {
-    #[serde(default)]
-    pub id: Option<i64>,
-    #[serde(default)]
-    pub name: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "file")]
@@ -227,20 +199,6 @@ pub struct Filesystem {
     #[serde(default)]
     #[serde(rename = "wipeFilesystem")]
     pub wipe_filesystem: Option<bool>,
-}
-#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct LinkGroup {
-    #[serde(default)]
-    pub id: Option<i64>,
-    #[serde(default)]
-    pub name: Option<String>,
-}
-#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
-pub struct LinkUser {
-    #[serde(default)]
-    pub id: Option<i64>,
-    #[serde(default)]
-    pub name: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "link")]

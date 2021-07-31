@@ -146,6 +146,28 @@ mod regenerate {
             }
             visit_mut::visit_path_segment_mut(self, node);
         }
+
+        fn visit_file_mut(&mut self, node: &mut syn::File) {
+            // drop definitions for now-unused user/group structs
+            // https://github.com/Marwes/schemafy/issues/50
+            visit_mut::visit_file_mut(self, node);
+            node.items = node
+                .items
+                .drain(..)
+                .filter(|item| match item {
+                    syn::Item::Struct(s) => !matches!(
+                        s.ident.to_string().as_str(),
+                        "DirectoryGroup"
+                            | "DirectoryUser"
+                            | "FileGroup"
+                            | "FileUser"
+                            | "LinkGroup"
+                            | "LinkUser"
+                    ),
+                    _ => true,
+                })
+                .collect();
+        }
     }
 }
 
