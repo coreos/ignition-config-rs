@@ -12,10 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use schemafy::schemafy;
 use serde::{Deserialize, Serialize};
 
-schemafy!(
-    root: Config
-    "src/v3_1/ignition.json"
-);
+include!("schema.rs");
