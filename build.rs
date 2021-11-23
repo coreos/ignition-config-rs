@@ -106,38 +106,20 @@ mod regenerate {
             visit_mut::visit_field_mut(self, node);
         }
 
-        fn visit_item_struct_mut(&mut self, node: &mut syn::ItemStruct) {
-            // mangle struct identifier in declaration
-            // https://github.com/Marwes/schemafy/pull/49
-            let name = node.ident.to_string();
-            let new_name = name
-                .replace("ItemGroup", "Group")
-                .replace("GroupUser", "User");
-            if new_name != name {
-                node.ident = Ident::new(&new_name, Span::call_site())
-            }
-            visit_mut::visit_item_struct_mut(self, node);
-        }
-
         fn visit_path_segment_mut(&mut self, node: &mut syn::PathSegment) {
             // mangle struct identifier in field type
 
-            // https://github.com/Marwes/schemafy/pull/49
-            let name = node.ident.to_string();
-            let mut new_name = name
-                .replace("ItemGroup", "Group")
-                .replace("GroupUser", "User");
-
             // coalesce node user/group structs
             // https://github.com/Marwes/schemafy/issues/50
-            new_name = match new_name.as_str() {
+            let name = node.ident.to_string();
+            let new_name = match name.as_str() {
                 "DirectoryGroup" => "NodeGroup",
                 "DirectoryUser" => "NodeUser",
                 "FileGroup" => "NodeGroup",
                 "FileUser" => "NodeUser",
                 "LinkGroup" => "NodeGroup",
                 "LinkUser" => "NodeUser",
-                _ => &new_name,
+                _ => &name,
             }
             .to_string();
 
