@@ -52,7 +52,7 @@ Push access to the upstream repository is required in order to publish the new t
   - [ ] find the new tag in the [GitHub tag list](https://github.com/coreos/ignition-config-rs/tags), click the triple dots menu, and create a release for it
   - [ ] write a short changelog (i.e. re-use the PR content)
   - [ ] record digest of crate:
-    - `sha256sum target/package/ignition-config-rs-${RELEASE_VER}.crate`
+    - `sha256sum target/package/ignition-config-${RELEASE_VER}.crate`
   - [ ] publish release
 
 - clean up:
