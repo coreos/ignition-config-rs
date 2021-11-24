@@ -20,7 +20,7 @@ mod regenerate {
     use std::process::{Command, Stdio};
 
     use anyhow::{anyhow, bail, Context, Result};
-    use proc_macro2::{Ident, Span};
+    use proc_macro2::{Group, Ident, Span, TokenStream, TokenTree};
     use quote::quote;
     use schemafy_lib::Generator;
     use syn::visit_mut::{self, VisitMut};
@@ -88,6 +88,54 @@ mod regenerate {
     struct Rewriter;
 
     impl VisitMut for Rewriter {
+        fn visit_attribute_mut(&mut self, attr: &mut syn::Attribute) {
+            // mangle struct/field attributes
+
+            if attr.path.is_ident("derive") {
+                // #[derive(...)].  If we derive Serialize but not Default,
+                // which schemafy does when a struct contains a required
+                // field, inject a derive for Default.  This allows using
+                // Ignition config structs without manually specifying all
+                // the fields, but it also generates defaults for mandatory
+                // fields.  Generating explicit new() methods would be better,
+                // but also a lot more work.
+                let mut have_serialize = false;
+                let mut have_default = false;
+                fn descend(
+                    tokens: TokenStream,
+                    have_serialize: &mut bool,
+                    have_default: &mut bool,
+                ) -> TokenStream {
+                    let mut new_tokens = quote!();
+                    for token in tokens {
+                        new_tokens.extend(vec![match token {
+                            TokenTree::Group(g) => {
+                                let mut stream = descend(g.stream(), have_serialize, have_default);
+                                stream.extend(quote!(, Default));
+                                TokenTree::Group(Group::new(g.delimiter(), stream))
+                            }
+                            TokenTree::Ident(i) => {
+                                if i == Ident::new("Serialize", Span::call_site()) {
+                                    *have_serialize = true;
+                                } else if i == Ident::new("Default", Span::call_site()) {
+                                    *have_default = true;
+                                }
+                                TokenTree::Ident(i)
+                            }
+                            TokenTree::Punct(p) => TokenTree::Punct(p),
+                            TokenTree::Literal(l) => TokenTree::Literal(l),
+                        }]);
+                    }
+                    quote!(#new_tokens)
+                }
+                let modified = descend(attr.tokens.clone(), &mut have_serialize, &mut have_default);
+                if have_serialize && !have_default {
+                    attr.tokens = modified;
+                }
+            }
+            visit_mut::visit_attribute_mut(self, attr);
+        }
+
         fn visit_field_mut(&mut self, node: &mut syn::Field) {
             if let Some(ident) = node.ident.clone() {
                 // mangle field identifier

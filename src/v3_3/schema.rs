@@ -1,6 +1,6 @@
 // Generated code; do not modify
 
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 pub struct HttpHeadersItem {
     pub name: String,
     #[serde(default)]
@@ -75,7 +75,7 @@ pub struct KernelArguments {
     #[serde(rename = "shouldNotExist")]
     pub should_not_exist: Option<Vec<KernelArgument>>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "group")]
 pub struct Group {
     #[serde(default)]
@@ -90,7 +90,7 @@ pub struct Group {
     #[serde(default)]
     pub system: Option<bool>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "user")]
 pub struct User {
     #[serde(default)]
@@ -174,7 +174,7 @@ pub struct ClevisCustom {
     #[serde(default)]
     pub pin: Option<String>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "directory")]
 pub struct Directory {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -187,7 +187,7 @@ pub struct Directory {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<NodeUser>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "disk")]
 pub struct Disk {
     pub device: String,
@@ -197,7 +197,7 @@ pub struct Disk {
     #[serde(rename = "wipeTable")]
     pub wipe_table: Option<bool>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "file")]
 pub struct File {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -214,7 +214,7 @@ pub struct File {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<NodeUser>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "filesystem")]
 pub struct Filesystem {
     pub device: String,
@@ -235,7 +235,7 @@ pub struct Filesystem {
     #[serde(rename = "wipeFilesystem")]
     pub wipe_filesystem: Option<bool>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "link")]
 pub struct Link {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -250,7 +250,7 @@ pub struct Link {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<NodeUser>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "luks")]
 pub struct Luks {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -285,7 +285,7 @@ pub struct NodeUser {
     #[serde(default)]
     pub name: Option<String>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "node")]
 pub struct Node {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -323,7 +323,7 @@ pub struct Partition {
     #[serde(rename = "wipePartitionEntry")]
     pub wipe_partition_entry: Option<bool>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "raid")]
 pub struct Raid {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -362,14 +362,14 @@ pub struct Storage {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub raid: Option<Vec<Raid>>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "dropin")]
 pub struct Dropin {
     #[serde(default)]
     pub contents: Option<String>,
     pub name: String,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 #[serde(rename = "unit")]
 pub struct Unit {
     #[serde(default)]
@@ -394,7 +394,7 @@ pub struct Verification {
     #[serde(default)]
     pub hash: Option<String>,
 }
-#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize, Default)]
 pub struct Config {
     pub ignition: Ignition,
     #[serde(skip_serializing_if = "Option::is_none")]
