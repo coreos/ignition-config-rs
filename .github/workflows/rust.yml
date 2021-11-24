@@ -80,6 +80,13 @@ jobs:
         run: cargo build
       - name: cargo build (regenerate)
         run: cargo build --features regenerate
+      - name: Check generated files for changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Found local changes after regenerating generated files:"
+            git --no-pager diff --color=always
+            exit 1
+          fi
   tests-other-channels:
     name: "Tests, unstable toolchain"
     runs-on: ubuntu-latest
