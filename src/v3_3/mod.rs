@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use semver::Version;
 use serde::{Deserialize, Serialize};
+
+pub(crate) const VERSION: Version = Version::new(3, 3, 0);
 
 include!("schema.rs");
 

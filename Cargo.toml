@@ -17,7 +17,11 @@ pre-release-commit-message = "cargo: ignition-config release {{version}}"
 tag-message = "ignition-config v{{version}}"
 
 [dependencies]
+semver = "1.0"
 serde = { version = "1.0", features = ["derive"] }
+serde_ignored = "0.1"
+serde_json = "1.0"
+thiserror = "1.0"
 
 [build-dependencies]
 anyhow = "1.0"
