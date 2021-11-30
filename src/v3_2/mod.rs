@@ -15,3 +15,17 @@
 use serde::{Deserialize, Serialize};
 
 include!("schema.rs");
+
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            ignition: Ignition {
+                version: Some("3.2.0".into()),
+                ..Default::default()
+            },
+            passwd: None,
+            storage: None,
+            systemd: None,
+        }
+    }
+}
