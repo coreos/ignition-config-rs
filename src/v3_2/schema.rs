@@ -6,6 +6,11 @@ pub struct HttpHeadersItem {
     #[serde(default)]
     pub value: Option<String>,
 }
+impl HttpHeadersItem {
+    pub fn new(name: String) -> Self {
+        Self { name, value: None }
+    }
+}
 pub type HttpHeaders = Vec<HttpHeadersItem>;
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "ignition-config")]
@@ -79,6 +84,17 @@ pub struct Group {
     #[serde(default)]
     pub system: Option<bool>,
 }
+impl Group {
+    pub fn new(name: String) -> Self {
+        Self {
+            gid: None,
+            name,
+            password_hash: None,
+            should_exist: None,
+            system: None,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "user")]
 pub struct User {
@@ -118,6 +134,26 @@ pub struct User {
     #[serde(default)]
     pub uid: Option<i64>,
 }
+impl User {
+    pub fn new(name: String) -> Self {
+        Self {
+            gecos: None,
+            groups: None,
+            home_dir: None,
+            name,
+            no_create_home: None,
+            no_log_init: None,
+            no_user_group: None,
+            password_hash: None,
+            primary_group: None,
+            shell: None,
+            should_exist: None,
+            ssh_authorized_keys: None,
+            system: None,
+            uid: None,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "passwd")]
 pub struct Passwd {
@@ -152,6 +188,17 @@ pub struct Directory {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<NodeUser>,
 }
+impl Directory {
+    pub fn new(path: String) -> Self {
+        Self {
+            group: None,
+            mode: None,
+            overwrite: None,
+            path,
+            user: None,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "disk")]
 pub struct Disk {
@@ -161,6 +208,15 @@ pub struct Disk {
     #[serde(default)]
     #[serde(rename = "wipeTable")]
     pub wipe_table: Option<bool>,
+}
+impl Disk {
+    pub fn new(device: String) -> Self {
+        Self {
+            device,
+            partitions: None,
+            wipe_table: None,
+        }
+    }
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "file")]
@@ -178,6 +234,19 @@ pub struct File {
     pub path: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<NodeUser>,
+}
+impl File {
+    pub fn new(path: String) -> Self {
+        Self {
+            append: None,
+            contents: None,
+            group: None,
+            mode: None,
+            overwrite: None,
+            path,
+            user: None,
+        }
+    }
 }
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "filesystem")]
@@ -200,6 +269,20 @@ pub struct Filesystem {
     #[serde(rename = "wipeFilesystem")]
     pub wipe_filesystem: Option<bool>,
 }
+impl Filesystem {
+    pub fn new(device: String) -> Self {
+        Self {
+            device,
+            format: None,
+            label: None,
+            mount_options: None,
+            options: None,
+            path: None,
+            uuid: None,
+            wipe_filesystem: None,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "link")]
 pub struct Link {
@@ -214,6 +297,18 @@ pub struct Link {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<NodeUser>,
 }
+impl Link {
+    pub fn new(path: String, target: String) -> Self {
+        Self {
+            group: None,
+            hard: None,
+            overwrite: None,
+            path,
+            target,
+            user: None,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 pub struct LuksClevisCustom {
     pub config: String,
@@ -221,6 +316,15 @@ pub struct LuksClevisCustom {
     #[serde(rename = "needsNetwork")]
     pub needs_network: Option<bool>,
     pub pin: String,
+}
+impl LuksClevisCustom {
+    pub fn new(config: String, pin: String) -> Self {
+        Self {
+            config,
+            needs_network: None,
+            pin,
+        }
+    }
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 pub struct LuksClevis {
@@ -255,6 +359,20 @@ pub struct Luks {
     #[serde(rename = "wipeVolume")]
     pub wipe_volume: Option<bool>,
 }
+impl Luks {
+    pub fn new(name: String) -> Self {
+        Self {
+            clevis: None,
+            device: None,
+            key_file: None,
+            label: None,
+            name,
+            options: None,
+            uuid: None,
+            wipe_volume: None,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 pub struct NodeGroup {
     #[serde(default)]
@@ -279,6 +397,16 @@ pub struct Node {
     pub path: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<NodeUser>,
+}
+impl Node {
+    pub fn new(path: String) -> Self {
+        Self {
+            group: None,
+            overwrite: None,
+            path,
+            user: None,
+        }
+    }
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "partition")]
@@ -318,6 +446,17 @@ pub struct Raid {
     #[serde(default)]
     pub spares: Option<i64>,
 }
+impl Raid {
+    pub fn new(devices: Vec<String>, level: String, name: String) -> Self {
+        Self {
+            devices,
+            level,
+            name,
+            options: None,
+            spares: None,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "tang")]
 pub struct Tang {
@@ -351,6 +490,14 @@ pub struct Dropin {
     pub contents: Option<String>,
     pub name: String,
 }
+impl Dropin {
+    pub fn new(name: String) -> Self {
+        Self {
+            contents: None,
+            name,
+        }
+    }
+}
 #[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "unit")]
 pub struct Unit {
@@ -363,6 +510,17 @@ pub struct Unit {
     #[serde(default)]
     pub mask: Option<bool>,
     pub name: String,
+}
+impl Unit {
+    pub fn new(name: String) -> Self {
+        Self {
+            contents: None,
+            dropins: None,
+            enabled: None,
+            mask: None,
+            name,
+        }
+    }
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "systemd")]
@@ -385,4 +543,14 @@ pub struct Config {
     pub storage: Option<Storage>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub systemd: Option<Systemd>,
+}
+impl Config {
+    pub fn new(ignition: Ignition) -> Self {
+        Self {
+            ignition,
+            passwd: None,
+            storage: None,
+            systemd: None,
+        }
+    }
 }
