@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// schemafy doesn't derive Eq on structs, and we don't do it either because
+// any floating point value added to a struct in a future schema version
+// would cause cascading Eq removals.  PartialEq is good enough for now.
+// https://github.com/Marwes/schemafy/issues/61
+#![allow(clippy::derive_partial_eq_without_eq)]
+
 use semver::Version;
 use serde::{Deserialize, Serialize};
 
