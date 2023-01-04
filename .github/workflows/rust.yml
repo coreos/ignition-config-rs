@@ -1,4 +1,3 @@
----
 name: Rust
 
 on:
@@ -23,12 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: stable
-          default: true
           components: rustfmt
       - name: cargo build
         run: cargo build
@@ -43,12 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ env['ACTIONS_MSRV_TOOLCHAIN']  }}
-          default: true
           components: rustfmt
       - name: cargo build
         run: cargo build
@@ -63,12 +60,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ env['ACTIONS_LINTS_TOOLCHAIN']  }}
-          default: true
           components: rustfmt, clippy
       - name: cargo fmt (check)
         run: cargo fmt -- --check -l
@@ -98,12 +94,11 @@ jobs:
           - nightly
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.channel }}
-          default: true
           components: rustfmt
       - name: cargo build
         run: cargo build
