@@ -125,7 +125,7 @@
             "noProxy": {
               "type": "array",
               "items": {
-                "type": ["string", "null"]
+                "type": "string"
               }
             }
           }
@@ -141,7 +141,10 @@
             }
           }
         }
-      }
+      },
+      "required": [
+        "version"
+      ]
     },
     "storage": {
       "type": "object",
@@ -268,6 +271,15 @@
               "items": {
                 "type": "string"
               }
+            },
+            "discard": {
+              "type": ["boolean", "null"]
+            },
+            "openOptions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "required": [
@@ -315,6 +327,9 @@
                 "type": "string"
             },
             "thumbprint": {
+              "type": ["string", "null"]
+            },
+            "advertisement": {
               "type": ["string", "null"]
             }
           }

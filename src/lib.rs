@@ -20,6 +20,7 @@ pub mod v3_0;
 pub mod v3_1;
 pub mod v3_2;
 pub mod v3_3;
+pub mod v3_4;
 
 type Result<T> = std::result::Result<T, Error>;
 
@@ -51,6 +52,7 @@ pub enum Config {
     V3_1(v3_1::Config),
     V3_2(v3_2::Config),
     V3_3(v3_3::Config),
+    V3_4(v3_4::Config),
 }
 
 impl Config {
@@ -71,6 +73,8 @@ impl Config {
             Self::V3_2(parse_warn(v, &mut warnings)?)
         } else if version == v3_3::VERSION {
             Self::V3_3(parse_warn(v, &mut warnings)?)
+        } else if version == v3_4::VERSION {
+            Self::V3_4(parse_warn(v, &mut warnings)?)
         } else {
             return Err(Error::UnknownVersion(version));
         };
@@ -192,6 +196,20 @@ mod tests {
         )
         .unwrap();
         assert_eq!(config, Config::V3_3(expected));
+        assert!(warnings.is_empty());
+
+        let mut expected = v3_4::Config::default();
+        expected
+            .storage
+            .get_or_insert_with(Default::default)
+            .files
+            .get_or_insert_with(Default::default)
+            .push(v3_4::File::new("/z".into()));
+        let (config, warnings) = Config::parse_str(
+            r#"{"ignition": {"version": "3.4.0"}, "storage": {"files": [{"path": "/z"}]}}"#,
+        )
+        .unwrap();
+        assert_eq!(config, Config::V3_4(expected));
         assert!(warnings.is_empty());
     }
 

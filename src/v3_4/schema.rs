@@ -31,7 +31,7 @@ pub struct Proxy {
     pub https_proxy: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "noProxy")]
-    pub no_proxy: Option<Vec<Option<String>>>,
+    pub no_proxy: Option<Vec<String>>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 pub struct SecurityTls {
@@ -55,7 +55,7 @@ pub struct Timeouts {
     #[serde(rename = "httpTotal")]
     pub http_total: Option<i64>,
 }
-#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Debug, Deserialize, Serialize)]
 #[serde(rename = "ignition")]
 pub struct Ignition {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -66,8 +66,18 @@ pub struct Ignition {
     pub security: Option<Security>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timeouts: Option<Timeouts>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: Option<String>,
+    pub version: String,
+}
+impl Ignition {
+    pub fn new(version: String) -> Self {
+        Self {
+            config: None,
+            proxy: None,
+            security: None,
+            timeouts: None,
+            version,
+        }
+    }
 }
 pub type KernelArgument = String;
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
@@ -352,12 +362,17 @@ pub struct Luks {
     pub clevis: Option<Clevis>,
     #[serde(default)]
     pub device: Option<String>,
+    #[serde(default)]
+    pub discard: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "keyFile")]
     pub key_file: Option<Resource>,
     #[serde(default)]
     pub label: Option<String>,
     pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "openOptions")]
+    pub open_options: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub options: Option<Vec<String>>,
     #[serde(default)]
@@ -371,9 +386,11 @@ impl Luks {
         Self {
             clevis: None,
             device: None,
+            discard: None,
             key_file: None,
             label: None,
             name,
+            open_options: None,
             options: None,
             uuid: None,
             wipe_volume: None,
@@ -469,6 +486,8 @@ impl Raid {
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "tang")]
 pub struct Tang {
+    #[serde(default)]
+    pub advertisement: Option<String>,
     #[serde(default)]
     pub thumbprint: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
