@@ -2,7 +2,7 @@
 name = "ignition-config"
 repository = "https://github.com/coreos/ignition-config-rs"
 license = "Apache-2.0"
-edition = "2018"
+edition = "2021"
 rust-version = "1.56.0"
 exclude = ["/.github", "/.gitignore"]
 authors = [ "Benjamin Gilbert <bgilbert@redhat.com>" ]
