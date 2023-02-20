@@ -46,7 +46,7 @@ impl Default for Ignition {
             proxy: None,
             security: None,
             timeouts: None,
-            version: "3.4.0".into(),
+            version: VERSION.to_string(),
         }
     }
 }

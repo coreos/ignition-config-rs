@@ -29,7 +29,7 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             ignition: Ignition {
-                version: Some("3.1.0".into()),
+                version: Some(VERSION.to_string()),
                 ..Default::default()
             },
             passwd: None,
