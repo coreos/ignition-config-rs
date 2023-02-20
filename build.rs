@@ -68,7 +68,7 @@ mod regenerate {
         let (output_file, output_path) =
             NamedTempFile::new_in(rust_path.parent().unwrap())?.into_parts();
         let mut formatter = Command::new("rustfmt")
-            .args(&["--edition", "2018"])
+            .args(["--edition", "2021"])
             .stdin(Stdio::piped())
             .stdout(output_file)
             .spawn()
