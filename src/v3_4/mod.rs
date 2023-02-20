@@ -21,20 +21,32 @@
 use semver::Version;
 use serde::{Deserialize, Serialize};
 
-pub(crate) const VERSION: Version = Version::new(3, 1, 0);
+pub(crate) const VERSION: Version = Version::new(3, 4, 0);
 
 include!("schema.rs");
 
+// clippy doesn't know that the derive would need to be in generated code
+#[allow(clippy::derivable_impls)]
 impl Default for Config {
     fn default() -> Self {
         Self {
-            ignition: Ignition {
-                version: Some(VERSION.to_string()),
-                ..Default::default()
-            },
+            ignition: Default::default(),
+            kernel_arguments: None,
             passwd: None,
             storage: None,
             systemd: None,
+        }
+    }
+}
+
+impl Default for Ignition {
+    fn default() -> Self {
+        Self {
+            config: None,
+            proxy: None,
+            security: None,
+            timeouts: None,
+            version: VERSION.to_string(),
         }
     }
 }
