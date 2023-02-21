@@ -7,7 +7,7 @@ rust-version = "1.56.0"
 exclude = ["/.github", "/.gitignore"]
 authors = [ "Benjamin Gilbert <bgilbert@redhat.com>" ]
 description = "Data structures for reading/writing Ignition configs"
-version = "0.2.0"
+version = "0.3.0"
 
 [package.metadata.release]
 sign-commit = true
