@@ -27,13 +27,13 @@ jobs:
           toolchain: stable
           components: rustfmt
       - name: cargo build
-        run: cargo build
+        run: cargo build --all-targets
       - name: cargo test
-        run: cargo test
+        run: cargo test --all-targets
       - name: cargo build (regenerate)
-        run: cargo build --features regenerate
+        run: cargo build --all-targets --features regenerate
       - name: cargo test (regenerate)
-        run: cargo test --features regenerate
+        run: cargo test --all-targets --features regenerate
   tests-msrv:
     name: "Tests, minimum supported toolchain"
     runs-on: ubuntu-latest
@@ -52,13 +52,13 @@ jobs:
           toolchain: ${{ env.MSRV }}
           components: rustfmt
       - name: cargo build
-        run: cargo build
+        run: cargo build --all-targets
       - name: cargo test
-        run: cargo test
+        run: cargo test --all-targets
       - name: cargo build (regenerate)
-        run: cargo build --features regenerate
+        run: cargo build --all-targets --features regenerate
       - name: cargo test (regenerate)
-        run: cargo test --features regenerate
+        run: cargo test --all-targets --features regenerate
   lints:
     name: "Lints, pinned toolchain"
     runs-on: ubuntu-latest
@@ -73,13 +73,13 @@ jobs:
       - name: cargo fmt (check)
         run: cargo fmt -- --check -l
       - name: cargo clippy (warnings)
-        run: cargo clippy -- -D warnings
+        run: cargo clippy --all-targets -- -D warnings
       - name: cargo clippy (warnings, regenerate)
-        run: cargo clippy --features regenerate -- -D warnings
+        run: cargo clippy --all-targets --features regenerate -- -D warnings
       - name: cargo build
-        run: cargo build
+        run: cargo build --all-targets
       - name: cargo build (regenerate)
-        run: cargo build --features regenerate
+        run: cargo build --all-targets --features regenerate
       - name: Check generated files for changes
         run: |
           if [ -n "$(git status --porcelain)" ]; then
@@ -105,10 +105,10 @@ jobs:
           toolchain: ${{ matrix.channel }}
           components: rustfmt
       - name: cargo build
-        run: cargo build
+        run: cargo build --all-targets
       - name: cargo test
-        run: cargo test
+        run: cargo test --all-targets
       - name: cargo build (regenerate)
-        run: cargo build --features regenerate
+        run: cargo build --all-targets --features regenerate
       - name: cargo test (regenerate)
-        run: cargo test --features regenerate
+        run: cargo test --all-targets --features regenerate
