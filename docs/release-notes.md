@@ -1,6 +1,7 @@
 # Release notes
 
 ## Upcoming ignition-config 0.4.0 (unreleased)
+- Require Rust ≥ 1.75.0
 
 
 
