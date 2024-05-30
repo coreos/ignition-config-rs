@@ -1,8 +1,14 @@
 # Release notes
 
-## Upcoming ignition-config 0.4.0 (unreleased)
+## Upcoming ignition-config 0.5.0 (unreleased)
+
+
+
+## ignition-config 0.4.0 (2024-05-30)
+
 - Require Rust ≥ 1.75.0
 - Add packit initial support
+- docs/release-notes: update for release 0.4.0
 
 
 ## ignition-config 0.3.0 (2023-02-20)
