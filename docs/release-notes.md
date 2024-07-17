@@ -3,9 +3,10 @@
 ## Upcoming ignition-config 0.5.0 (unreleased)
 
 
-## ignition-config 0.4.1 (unreleased)
+## ignition-config 0.4.1 (2024-07-17)
 
 - rust2rpm: disable development-only feature for regenerating sources
+- docs/release-notes: update for release 0.4.1
 
 
 ## ignition-config 0.4.0 (2024-05-30)
