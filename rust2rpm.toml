@@ -1,0 +1,9 @@
+[features]
+hide = [
+    "proc-macro2",
+    "quote",
+    "schemafy_lib",
+    "syn",
+    "tempfile",
+    "regenerate"
+]
