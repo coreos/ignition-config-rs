@@ -3,6 +3,11 @@
 ## Upcoming ignition-config 0.5.0 (unreleased)
 
 
+## ignition-config 0.4.2 (unreleased)
+
+- Update packit's downstream targets to be `fedora-rawhide`
+
+
 ## ignition-config 0.4.1 (2024-07-17)
 
 - rust2rpm: disable development-only feature for regenerating sources
