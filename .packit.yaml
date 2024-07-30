@@ -24,16 +24,13 @@ jobs:
   # https://packit.dev/docs/configuration#aliases
   dist_git_branches:
     - fedora-rawhide
-    - fedora-latest-stable
 
 - job: koji_build
   trigger: commit
   dist_git_branches:
-    - fedora-rawhide
-    - fedora-latest-stable
+    - fedora-all
 
 - job: bodhi_update
   trigger: commit
   dist_git_branches:
-    - fedora-rawhide
-    - fedora-latest-stable
+    - fedora-all
