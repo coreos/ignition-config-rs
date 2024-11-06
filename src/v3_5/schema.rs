@@ -197,6 +197,12 @@ pub struct Resource {
     pub verification: Option<Verification>,
 }
 #[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
+#[serde(rename = "cex")]
+pub struct Cex {
+    #[serde(default)]
+    pub enabled: Option<bool>,
+}
+#[derive(Clone, PartialEq, Debug, Default, Deserialize, Serialize)]
 #[serde(rename = "clevis")]
 pub struct Clevis {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -359,6 +365,8 @@ impl Link {
 #[serde(rename = "luks")]
 pub struct Luks {
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub cex: Option<Cex>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub clevis: Option<Clevis>,
     #[serde(default)]
     pub device: Option<String>,
@@ -384,6 +392,7 @@ pub struct Luks {
 impl Luks {
     pub fn new(name: String) -> Self {
         Self {
+            cex: None,
             clevis: None,
             device: None,
             discard: None,

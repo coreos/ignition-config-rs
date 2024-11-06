@@ -21,7 +21,7 @@
 use semver::Version;
 use serde::{Deserialize, Serialize};
 
-pub(crate) const VERSION: Version = Version::new(3, 4, 0);
+pub(crate) const VERSION: Version = Version::new(3, 5, 0);
 
 include!("schema.rs");
 

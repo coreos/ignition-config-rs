@@ -2,9 +2,7 @@
 
 ## Upcoming ignition-config 0.5.0 (unreleased)
 
-
-## ignition-config 0.4.2 (unreleased)
-
+- Add Ignition 3.5.0 spec
 - Update packit's downstream targets to be `fedora-rawhide`
 
 
