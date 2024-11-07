@@ -21,6 +21,7 @@ pub mod v3_1;
 pub mod v3_2;
 pub mod v3_3;
 pub mod v3_4;
+pub mod v3_5;
 
 type Result<T> = std::result::Result<T, Error>;
 
@@ -53,6 +54,7 @@ pub enum Config {
     V3_2(v3_2::Config),
     V3_3(v3_3::Config),
     V3_4(v3_4::Config),
+    V3_5(v3_5::Config),
 }
 
 impl Config {
@@ -75,6 +77,8 @@ impl Config {
             Self::V3_3(parse_warn(v, &mut warnings)?)
         } else if version == v3_4::VERSION {
             Self::V3_4(parse_warn(v, &mut warnings)?)
+        } else if version == v3_5::VERSION {
+            Self::V3_5(parse_warn(v, &mut warnings)?)
         } else {
             return Err(Error::UnknownVersion(version));
         };
