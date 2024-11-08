@@ -23,7 +23,8 @@ jobs:
   trigger: release
   # https://packit.dev/docs/configuration#aliases
   dist_git_branches:
-    - fedora-rawhide
+    fedora-rawhide:
+      fast_forward_merge_into: [fedora-latest-stable]
 
 - job: koji_build
   trigger: commit

@@ -7,6 +7,7 @@
 
 - Add Ignition 3.5.0 spec
 - Update packit's downstream targets to be `fedora-rawhide`
+- packit.yaml: enable fast-forwarding branches
 
 
 ## ignition-config 0.4.1 (2024-07-17)
