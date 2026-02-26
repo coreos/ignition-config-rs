@@ -6,7 +6,7 @@ actions:
   post-upstream-clone:
     - wget https://src.fedoraproject.org/rpms/rust-ignition-config/raw/rawhide/f/rust-ignition-config.spec
   prepare-files:
-    - bash -c 'rust2rpm -s ignition-config $PACKIT_PROJECT_VERSION'
+    - bash -c 'rust2rpm -s .'
 
 specfile_path: rust-ignition-config.spec
 downstream_package_name: rust-ignition-config
