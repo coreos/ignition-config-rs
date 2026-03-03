@@ -2,6 +2,9 @@
 
 ## Upcoming ignition-config 0.7.0 (unreleased)
 
+
+## ignition-config 0.6.1 (2026-03-03)
+
 - Require Rust ≥ 1.85.0
 - Remove tempfile upper bound constraint to fix Fedora packaging
 
